@@ -10,11 +10,11 @@ RUN apk add mariadb mariadb-client
 ENV DB_DATA_PATH=/opt/app/db/
 ENV DB_NAME=mydb
 
-RUN echo "installing db data to $DB_DATA_PATH"
-RUN mysql_install_db --user=mysql --datadir=$DB_DATA_PATH
-
 RUN echo "echo starting mysql with datadir $DB_DATA_PATH..." >> /usr/bin/start.sh
+RUN echo "killall mysqld" >> /usr/bin/start.sh
+RUN echo "mysql_install_db --user=mysql --datadir=$DB_DATA_PATH" >> /usr/bin/start.sh
 RUN echo "mysqld_safe --datadir=$DB_DATA_PATH --skip-grant-tables &" >> /usr/bin/start.sh
+RUN echo "sleep 3" >> /usr/bin/start.sh
 RUN echo "echo 'create database $DB_NAME' | mysql -u root" >> /usr/bin/start.sh
 
 # if you need redis, uncomment the lines below
