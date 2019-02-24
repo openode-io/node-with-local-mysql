@@ -1,0 +1,19 @@
+version: '3'
+services:
+  www:
+    container_name: 151--testy44
+
+    volumes:
+      - /opt/app/:/opt/app/
+    ports:
+      - "80:80"
+    build:
+      context: .
+
+  mariadb:
+    image: mariadb
+    volumes:
+      - /opt/app/db/:/var/lib/mysql/
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: mydb
